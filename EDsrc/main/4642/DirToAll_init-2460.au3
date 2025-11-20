@@ -173,7 +173,7 @@ Func _LoadPresetSelect(ByRef $aSettings)
             GUICtrlSetData($idInputAllCodeFile, _GetSetting($aSettings, 'AllCodeFile'))
             GUICtrlSetData($idInputExtFilter, _GetSetting($aSettings, 'ExtFilter'))
 
-            MsgBox($MB_ICONINFORMATION, "Erfolg", "Preset [" & $sSection & "] erfolgreich geladen.")
+            MsgBox($MB_ICONINFORMATION, "Erfolg" & @ScriptLineNumber, "Preset [" & $sSection & "] erfolgreich geladen.")
         Else
              MsgBox($MB_ICONERROR, "Fehler", "Preset-Nummer [" & $sSection & "] nicht gefunden.")
         EndIf
@@ -203,7 +203,7 @@ Func _SavePresetAsNew(ByRef $aSettings)
     ; 5. GUI-Button-Label aktualisieren
     GUICtrlSetData($idBtnSavePreset, "SAVE AS [" & ($iNewNum + 1) & "]")
 
-    MsgBox($MB_ICONINFORMATION, "Speichern", "Aktuelle Einstellungen erfolgreich als Preset [" & $iNewNum & "] gespeichert.")
+    MsgBox($MB_ICONINFORMATION, "Speichern" & @ScriptLineNumber, "Aktuelle Einstellungen erfolgreich als Preset [" & $iNewNum & "] gespeichert.")
 
     Return $aSettings
 EndFunc ;==>_SavePresetAsNew

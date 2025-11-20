@@ -17,26 +17,6 @@ Global $g_sIndexFilePath
 Global $idInputInParent, $idInputInSub, $idInputOutParent, $idInputOutSub, $idInputAllCodeFile, $idInputExtFilter
 Global $iMode
 
-; KORREKTUR: Funktions-Listen entfernt oder korrekt auskommentiert
-; Funktionen, die von DirToAll_init[2440].au3 benötigt werden:
-; Func _ReadIniSectionSettings(ByRef $aSettings, $sSectionName);
-
-; Funktionen, die von DirToAll_MarkerFiles[2440].au3 benötigt werden:
-; Func AppendFilesToAllCode1file_Txt(ByRef $aSettings, ByRef $arFil, ByRef $arExt);
-; Func All1file2Folder(ByRef $aSettings);
-#cs
-Funktion,Code-Stelle(n),Zweck & Logik
-_PathCleanBackslashes,Zeile 1039,Entfernt alle doppelten Backslashes (\\) im gesamten Pfad.
-_PathEnsureTrailingBackslash,Zeile 1040,"Stellt sicher, dass der Pfad mit einem einzelnen Backslash (\) endet."
-_PreparePaths,Zeilen 1061-1062,"Input-Ordner ($sFolderIn): Der finale Eingabeordner wird korrekt als $sInParent + $sInSub generiert. Die Funktion stellt sicher, dass es keine doppelten Schrägstriche gibt und der Pfad korrekt endet."
-_PreparePaths,Zeile 1064,"Output-Struktur: Definiert den Pfad zum Extraktionsziel ($sFolderOutExtract) konsistent mit dem erwarteten Layout: \OutParent\OutSub_IDX\OutSub\ (Der Ordner $sOutSub wird innerhalb des Index-Ordners dupliziert, was die aktuelle Soll-Logik ist)."
-
- Funktion,Code-Stelle(n),Zweck & Logik
-AppendFilesToAllCode1file_Txt,Zeile 77,"Relative Pfad-Erzeugung (FIX): Local $sFileNameForMarker = StringReplace($sFullPathFile, $sFolderIn, '', 1, 1)  Der Zusatz , 1, 1 ist der entscheidende Fix. Er stellt sicher, dass der Basispfad ($sFolderIn) nur einmal und nur am Anfang entfernt wird, wodurch nur der relative Pfad (z.B. subfolder\file.txt) übrig bleibt."
-AppendFilesToAllCode1file_Txt,Zeile 77,Marker-Zielpfad: Local $sFullTargetPath = $sFolderOutExtract & $sFileNameForMarker  Der finale Pfad für den Marker wird aus dem definierten Zielordner ($sFolderOutExtract) und dem korrekt relativen Pfad ($sFileNameForMarker) zusammengesetzt.
-All1file2Folder,Zeile 78,"Regex-Verbesserung: Local $sRegex = '.{0,6}?' & $sLocalMarkerBegin & '.*?""file"":""([^""]+)"".*?'  Die Toleranz für Zeichen vor dem Marker ist auf 6 (.{0,6}?) erhöht worden, was die Robustheit beim Extrahieren verbessert."
-
-#ce
 ; #########################################################################################################
 ; 2D Array Helfer-Funktionen (Key-Value-Struktur)
 ; #########################################################################################################

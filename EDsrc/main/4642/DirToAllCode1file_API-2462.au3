@@ -1,6 +1,6 @@
 #include-once
 #Region
-; master:        DirToAllCode1file_API-2452.au3
+; master:        DirToAllCode1file_API-2462.au3
 #include <MsgBoxConstants.au3>
 #include <StringConstants.au3>
 #include <String.au3>
@@ -13,94 +13,11 @@
 #include <Array.au3>
 #include <Math.au3>
 #include <File.au3>
-; master: DirToAllCode1file_API-2460.au3; Slave inc func DirToAll_MarkerFiles  DirToAll_init  DirToAll_GetSetArr
+; master: DirToAllCode1file_API-2462.au3; Slave inc func DirToAll_MarkerFiles  DirToAll_init  DirToAll_GetSetArr
 #include "DirToAll_MarkerFiles-2460.au3"
 #include "DirToAll_init-2460.au3"
 #include "DirToAll_GetSetArr-2460.au3"
 
-
-#cs ;;//   DirToAll_MarkerFiles[2440].au3
-##########git#######
-2050 gitpush bare  push giteweb and bare (first) push okok
-
-
-
-
-
-
-
-** ToDo:
-## marker erzeugung reparieren
-## error eg.
-////_marker_begin {"ver":"idxq_2443","timestamp":"2025-11-01T18:05:38Z","file":"D:\ws\autoit2020\4chat1file\1file\files_out_2443\files_out\D:\ws\autoit2020\4chat1file\files\5batINC.au3"}
-## folder name ist doppelt drinn
-
-## correct
-////_marker_begin {"ver":"idxq_2443","timestamp":"2025-11-01T18:05:38Z","file":"D:\ws\autoit2020\4chat1file\files\5batINC.au3"}
-
-## veraender den code nicht , nenne die stelle / stellen und den code der zu aendern ist , ;OLDCODE: , ;NEWCODE:
-#####################
-find explorer:  content:FileWriteMy  ext:au3
-alle 2040 .bak in d ws autoit2020 .bak
-#######################
-bitte hilfe fuer wirkungsvolle promt formulierung
-
-
-in mein gelieferten file steht ausdruecklich:   "set prj MUST in LINE 2"
-"""
-@ECHO OFF
-set "prj=DirToAllCode1file_API"
-:: set prj MUST in LINE 2 :: ws edit src prj-name-dir ::
-"""
-
-und dann bekomme ich von der KI / AI
-trotzdem noch files wo das nicht beachtet wird , eg.
-
-"""
-@ECHO OFF
-SETLOCAL
-
-rem --- Projekt / Pfade (anpassen falls nötig) ---
-set "prj=DirToAllCode1file_API"
-
-"""
-
-
-und antworten , die das auch ignorieren:
-
-
-Praxisempfehlung: Setze SETLOCAL direkt nach @ECHO OFF, bevor du die wichtigsten Variablen (prj, REPO_DIR, KEY_PATH, FOLDERS, etc.) definierst.
-
-
-## bitte gib mir formulierungen , sehr kurz in liste oder yaml oder kurz md , fuer den AI promt damit die AI  nicht unnoetig abschweift   und sich immer exact an den context und die anweisung befolgt
-
-noch fragen?
-
-## 2033 tag hinzu
-## git push 2033 und 2040 v_xxxx to datim_xxxx
-##tst new barePUSH-2041.bat-datime-.bat gpt5
-
---letzte tag leer:
-* Auto-Commit 2025-11-02 23:11:12,09
-
-* Tag Info:
-object 1f8000cc89840afa523eedfa3fc0a305a28e2719
-type commit
-tag datim_001.018.922
-
---next mit msg=TAGGGINFOOO:
-* Tag Info:
-object 188bb9ead4a8cb1e8c9c9b65fc43a4550f16a16e
-type commit
-tag datim_001.019.007
-tagger e6000000 <com24ed@gmail.com> 2025-11-02 23:14:07 Uhr
-
- next mit msg=TAGGGINFOOO  <--> aha msg steht drunter bei tortoise git
-
-NO "" '''' !!!!  space ok    next mit msg=TAGGGINFOOO space
-nu gitpush nach paar bare push
-
-#ce
 #EndRegion
 ;#########################################################################################################
 ; Globale Variablen (NUR Konfiguration, KEIN Zustand)
@@ -127,7 +44,7 @@ Global $gAllCodeFile = ''
 ;
 ; Filter-Konfiguration
 Global $extFilter = '.au3.bat.css.h.html.htm.js.json.svg.txt.tpl.txt'
-;; 1D array with step 3
+;; 1D array with step 3 ;; nu.
 Global $g_aExtFilterComments[45] = [ _
 		"au3", ";;//", "", _
 		"bat", "::", "", _
@@ -146,22 +63,11 @@ Global $g_aExtFilterComments[45] = [ _
 		"default", ";;//", "" _
 		]
 Global $g_strExtFilterComments = ar2str($g_aExtFilterComments)
-; INFO nu.  Original source files INFO
-#cs
-Global $sBat1_Orig = $sWorkingDir & "\bareFETCH-2033.bat"
-Global $sBat2_Orig = $sWorkingDir & "\barePUSH-2033.bat"
-Global $sBat3_Orig = $sWorkingDir & "\gitFETCH-2033.bat"
-Global $sBat4_Orig = $sWorkingDir & "\gitPUSH-2033.bat"
-Global $sBat5_Orig = $sWorkingDir & "\gitwebCREATE-2033.bat"
-#ce
-; Marker-Konfiguration (Marker-Text ist Global, Logik ist in Logic_Core)
-Local $sLocalMarkerBegin = "////_marker_begin"
-Local $sLocalMarkerEnd = "////_marker_end"
 ;
 ;
 ; GUI-Variablen (NUR IDs und Modus-Schalter)
 Global $hGUI
-Global $GUItoptitl = "DirToAllCode1file_API-2450.au3 (DirTo1File/1FileToDir)"  ;;GUICreate("DirToAllCode1file_API-2450.au3 (DirTo1File/1FileToDir)"
+Global $GUItoptitl = "DirToAllCode1file_API-2462.au3 (DirTo1File/1FileToDir)"  ;;GUICreate("DirToAllCode1file_API-2450.au3 (DirTo1File/1FileToDir)"
 Global $idInputInParent, $idInputInSub, $idInputOutParent, $idInputOutSub
 Global $idInputAllCodeFile
 Global $idInputExtFilter
@@ -175,6 +81,9 @@ Global $idBtnSelAllCodeFile
 Global $idLabelIndex
 Global $idBtnIndexNext
 Global $iMode = 0
+;
+;
+; ;// Func MarkerBegin($sFullPathFileName, $sTimestamp, $sIDXnum)   ;// DirToAll_MarkerFiles-2460.au3
 ;
 ;
 ; #########################################################################################################
@@ -209,7 +118,7 @@ Func MainWorkflow(ByRef $aSettings)
 
 			If StringLen($sExtractionResult) > 0 Then
 				_SetSetting($aSettings, 'ResultList', $sAllCodeFile)
-				MsgBox($MB_ICONINFORMATION, 'Erfolg', "Modus 0 (Combine) abgeschlossen UND Modus 1 (Extract) zur Verifikation erfolgreich ausgeführt. Sammeldatei erstellt: " & $sAllCodeFile)
+				MsgBox($MB_ICONINFORMATION, 'Erfolg' & @ScriptLineNumber, "Modus 0 (Combine) abgeschlossen UND Modus 1 (Extract) zur Verifikation erfolgreich ausgeführt. Sammeldatei erstellt: " & $sAllCodeFile)
 			Else
 				MsgBox($MB_ICONWARNING, 'FEHLER/Warnung', "Modus 0 (Combine) abgeschlossen, aber Modus 1 (Extract) Verifikation fehlgeschlagen || $extFilter ? list:" & $extFilter)
 			EndIf
@@ -226,7 +135,7 @@ Func MainWorkflow(ByRef $aSettings)
 
 		If StringLen($sResultList) > 0 Then
 			_SetSetting($aSettings, 'ResultList', $sResultList)
-			MsgBox($MB_ICONINFORMATION, 'Erfolg', "Modus 1 abgeschlossen." & @CRLF & "Dateien extrahiert. Output-Pfade wurden aus der Sammel-Datei abgeleitet.")
+			MsgBox($MB_ICONINFORMATION, 'Erfolg'& @ScriptLineNumber, "Modus 1 abgeschlossen." & @CRLF & "Dateien extrahiert. Output-Pfade wurden aus der Sammel-Datei abgeleitet.")
 		Else
 			MsgBox($MB_ICONWARNING, 'FEHLER/Warnung', @ScriptLineNumber & " Modus 1  FEHLER bei der Rückkonvertierung oder keine Marker gefunden. Überprüfen Sie: filename:" & $sAllCodeFile)
 		EndIf
@@ -256,7 +165,7 @@ Func CreateGUI()
 
     ; --- Spalte 1: Settings Buttons (Gestapelt und gleich breit) ---
     ; 1. Settings (Edit INI) - Funktion aus DirToAll_init
-    Global $idBtnSettings = GUICtrlCreateButton("≡ INI Edit", $iLeft, $iTop, $iWidthPresetBtn, 25)
+    Global $idBtnSettings = GUICtrlCreateButton("Settings  INI Edit", $iLeft, $iTop, $iWidthPresetBtn, 25)
 
     ; 2. SAVE AS Button - Funktion aus DirToAll_init
     $iTop += 30
@@ -307,14 +216,14 @@ Func CreateGUI()
 	GUICtrlCreateLabel("Input Folder Sub (Mode 0):", $iLeft, $iTop, 300, 20)
 	$idInputInSub = GUICtrlCreateInput(_GetSetting($aSettings, 'InSub'), $iLeft, $iTop + 20, $iWidthInput, 25)
 	$idBtnSelInSub = GUICtrlCreateButton("Dir", $iBtnX, $iTop + 20, $iWidthBtn, 25)
-	$iTop += 50
-
+	$iTop += 50 + 11
+  ;; add distance 11
 	;
 	; --- 3. Sammeldatei ($AllCode1file_Txt) ---
 	GUICtrlCreateLabel("Sammel-Datei (Mode 1 Input):", $iLeft, $iTop, 400, 20)
 	$idInputAllCodeFile = GUICtrlCreateInput(_GetSetting($aSettings, 'AllCodeFile'), $iLeft, $iTop + 20, $iWidthInput, 25)
 	$idBtnSelAllCodeFile = GUICtrlCreateButton("File", $iBtnX, $iTop + 20, $iWidthBtn, 25)
-	$iTop += 50
+	$iTop += 50 + 11
 
 	;
 	; --- 4. Eingabefeld: Output Folder Parent ---
@@ -330,7 +239,7 @@ Func CreateGUI()
 	$idBtnSelOutSub = GUICtrlCreateButton("Dir", $iBtnX, $iTop + 20, $iWidthBtn, 25)
 
 
-	$iTop += 50 + 7
+	$iTop += 50 +  23
 	;
 	; --- Modus-Auswahl-Buttons ---
 	Local $iBtnWMode = 285

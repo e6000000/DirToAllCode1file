@@ -11,23 +11,13 @@ Global $dbgg, $extFilter
 Global $g_sVersionPrefix
 Global $sLocalMarkerBegin, $sLocalMarkerEnd
 
-; KORREKTUR: Funktions-Listen entfernt oder korrekt auskommentiert
-; Funktionen, die von DirToAll_GetSetArr[2440].au3 benötigt werden:
-; Func _GetSetting(ByRef $aArray, $sKey);
-; Func ArExtFilterFkt();
-; Func ArraySearchMy(ByRef $a, $val);
-; Func DelPoint(ByRef $e);
-; Func Change0ApendLine(ByRef $aRetArray, $ChangeElement0, $ApendLine);
-; Func FilterExtensions(ByRef $arExtAll, ByRef $arExtFilter);
-; Func FileWriteMy(ByRef $PathFileExt, ByRef $String);
-; Func ifDelFile(ByRef $ifil);
-
-
 ; #########################################################################################################
 ; Marker-Funktionen
 ; #########################################################################################################
 
-Func MarkerBegin($sFullPathFileName, $sTimestamp, $sIDXnum)
+Func MarkerBegin($sFullPathFileName, $sTimestamp, $sIDXnum)   ;// DirToAll_MarkerFiles-2460.au3
+  ;// eg. ;//      ////_marker_begin {"ver":"idxq_2683","timestamp":"2025-11-20T09:19:24Z","file":"D:\ws\youtube-DUBBING-pos-div\DubbingShortTest_out_2683\DubbingShortTest_out\3.1.18_0\manifest.json"}
+  ;// ToDo:  add comment 6 zeichen je nach ext
 	Local $sMarkerString = "//" & "//" & "_mar" & "ker_begin {" & '"ver":"' & $g_sVersionPrefix & $sIDXnum & '",' & '"timestamp":"' & $sTimestamp & '",' & '"file":"' & $sFullPathFileName & '"' & "}"
 	Return $sMarkerString
 EndFunc   ;==>MarkerBegin
@@ -80,24 +70,27 @@ Func AppendFilesToAllCode1file_Txt(ByRef $aSettings, ByRef $arFil, ByRef $arExt)
 EndFunc   ;==>AppendFilesToAllCode1file_Txt
 
 func a2f($sFullPathFile, ByRef $aRetArray)
-  	return _FileWriteFromArray($sFullPathFile, ByRef $aRetArray, 0)  ;;// 0 start arr index 0
+  	return _FileWriteFromArray($sFullPathFile,   $aRetArray, 0)  ;;// 0 start arr index 0
 EndFunc
 func f2a($sFullPathFile, ByRef $aRetArray)
-     return _FileReadToArray($sFullPathFile, ByRef $aRetArray)
+     return _FileReadToArray($sFullPathFile, $aRetArray)
 EndFunc
 func arr2fil($sFullPathFile, ByRef $aRetArray)
-  	return _FileWriteFromArray($sFullPathFile, ByRef $aRetArray, 0)  ;;// 0 start arr index 0
+  	return _FileWriteFromArray($sFullPathFile, $aRetArray, 0)  ;;// 0 start arr index 0
 EndFunc
 func fil2arr($sFullPathFile, ByRef $aRetArray)
-     return _FileReadToArray($sFullPathFile, ByRef $aRetArray)
+     return _FileReadToArray($sFullPathFile,   $aRetArray)
 EndFunc
 Func All1file2Folder(ByRef $aSettings)
 	; Modus 1: Extrahiert alle Dateien
 	Local $sAllCodeFileTxt = _GetSetting($aSettings, 'AllCodeFile')
-	Local $sFileContent = FileRead($sAllCodeFileTxt)
-
-	If @error Then Return ""
-
+	Local $sFileContent = FileRead($sAllCodeFileTxt) 
+            If @error Then
+                ConsoleWrite('@@ Debug(' & @ScriptLineNumber & ') : unc All1file2Folder(ByRef $aSettings) error.  @ScriptLineNumber '   & @CRLF & '>Error code: ' & @error & @CRLF) ;### Debug Console
+            
+               Return ""
+              endif
+    
 	Local $sRegex = '.{0,6}?' & $sLocalMarkerBegin & '.*?"file":"([^"]+)".*?' & @CRLF & '([\s\S]*?)' & @CRLF & $sLocalMarkerEnd & '.*'
 	Local $aMatches = StringRegExp($sFileContent, $sRegex, 3)
 
